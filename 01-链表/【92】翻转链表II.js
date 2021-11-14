@@ -51,3 +51,24 @@ function traverLinkedList (head) {
   }
   return prev;
 }
+
+var reverseBetween2 = function (head, left, right) {
+  // 1.找出反转链表的前一个节点
+  var dummyList = new ListNode(-1, head);
+  var l = left;
+  var pre = head;
+  while (--l) {
+    pre = pre.next;
+  }
+  pre.next = reverse(pre, right - left + 1);
+  return dummyList.next;
+}
+function reverse(head, n) {
+  if (!head) return null;
+  var pre = null, cur = head;
+  while (cur && n-- > 0) {
+    [cur.next, pre, cur] = [pre, cur, cur.next]
+  }
+  head.next = cur;
+  return pre;
+}
